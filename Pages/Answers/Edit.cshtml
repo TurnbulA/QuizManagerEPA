@@ -1,0 +1,45 @@
+﻿@page
+@model QuizManager.Pages.Answers.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Answer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Answer.AnswerId" />
+            <div class="form-group">
+                <label asp-for="Answer.AnswerContent" class="control-label"></label>
+                <input asp-for="Answer.AnswerContent" class="form-control" />
+                <span asp-validation-for="Answer.AnswerContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Answer.AnswerType" class="control-label"></label>
+                <input asp-for="Answer.AnswerType" class="form-control" />
+                <span asp-validation-for="Answer.AnswerType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Answer.QuestionContent" class="control-label"></label>
+                <input asp-for="Answer.QuestionContent" class="form-control" />
+                <span asp-validation-for="Answer.QuestionContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
