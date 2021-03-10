@@ -16,6 +16,7 @@ namespace QuizManager.Models
         public string AnswerType { get; set; }
         [Display(Name = "Question")]
         public string QuestionContent { get; set; }
+        [Display(Name ="Quiz")]
         public string QuizName { get; set; }
         public Question Question { get; set; }
         public Quiz Quiz { get; set; }

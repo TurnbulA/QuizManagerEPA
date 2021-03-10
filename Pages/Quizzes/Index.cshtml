@@ -5,7 +5,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Quizzes</h1>
 
 <p>
     <a asp-page="Create">Create New</a>
@@ -29,7 +29,8 @@
                 <a asp-page="/Questions/Create" class="newQuestion">Add Question</a> |
                 <a asp-page="./Edit" asp-route-id="@item.QuizID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.QuizID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.QuizID">Delete</a>
+                <a asp-page="./Delete" asp-route-id="@item.QuizID">Delete</a> |
+                <a asp-page="/Questions/Index" class="btn btn-primary viewQuiz">Veiw Quiz Questions</a>
             </td>
         </tr>
 }
@@ -38,6 +39,15 @@
 <script>
     quizItem = [...document.querySelectorAll(".newQuestion")]
     quizItem.forEach(item => { 
+        item.addEventListener("click", (e) => {
+            parentTarget = e.target.parentNode.parentNode;
+            quizName = parentTarget.querySelector(".quizName").innerHTML;
+            quizName = quizName.trim();
+            sessionStorage.setItem("quizName", quizName);
+        })
+    })
+    viewQuiz = [...document.querySelectorAll(".viewQuiz")]
+    viewQuiz.forEach(item => {
         item.addEventListener("click", (e) => {
             parentTarget = e.target.parentNode.parentNode;
             quizName = parentTarget.querySelector(".quizName").innerHTML;

@@ -30,8 +30,14 @@ namespace QuizManager.Pages.Questions
             QuestionSort = String.IsNullOrEmpty(sortOrder) ? "question_desc" : "";
             QuizSort = sortOrder == "Quiz" ? "quiz_desc" : "Quiz";
 
+            CurrentFilter = searchString;
+
             IQueryable<Question> questionsIQ = from q in _context.Question
                                               select q;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                questionsIQ = questionsIQ.Where(q => q.QuizName.Contains(searchString) || q.QuestionContent.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "question_desc":

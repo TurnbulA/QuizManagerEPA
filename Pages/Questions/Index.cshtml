@@ -7,9 +7,16 @@
 
 <h1>Questions</h1>
 
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
+<form asp-page="./Index" method="get" class="searchForm">
+    <div class="form-actions no-color">
+        <p>
+            Search:
+            <input type="text" name="SearchString" class="searchInput" value="@Model.CurrentFilter"/>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-page="./Index">Show Full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
@@ -40,13 +47,29 @@
                 <a asp-page="/Answers/Create" class="newAnswer">Add Answer</a> |
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a> |
+                <a asp-page="/Answers/index" class="btn btn-primary viewAnswer">Veiw Question Answer</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
 <script>
+    window.addEventListener("load", () => {
+        if ("quizName" in sessionStorage) {
+            quizName = sessionStorage.getItem("quizName").replace(/\s/g, "");
+            searchForm = document.querySelector(".searchForm")
+            searchForm.style.display = "none";
+            questions = [...document.querySelectorAll(".quizName")]
+            console.log(quizName)
+            questions.forEach(item => {
+                if (item.innerHTML.trim() != quizName) {
+                    item.parentNode.style.display = "none"
+                }
+            })            
+        }
+        sessionStorage.clear();   
+    })
     questionItem = [...document.querySelectorAll(".newAnswer")];
     questionItem.forEach(item => {
         item.addEventListener("click", (e) => {
@@ -56,7 +79,16 @@
             quizName = parentTarget.querySelector(".quizName").innerHTML.trim();
             sessionStorage.setItem("question", questionName);
             sessionStorage.setItem("quiz", quizName);
-
+        })
+    })
+    viewAnswers = [...document.querySelectorAll(".viewAnswer")]
+    viewAnswers.forEach(item => {
+        item.addEventListener("click", (e) => {
+            parentTarget = e.target.parentNode.parentNode;
+            question = parentTarget.querySelector(".questionName").innerHTML.trim();
+            quiz = parentTarget.querySelector(".quizName").innerHTML.trim();
+            sessionStorage.setItem("questionName", question)
+            sessionStorage.setItem("quizName", quiz)
         })
     })
 </script>
