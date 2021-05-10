@@ -26,11 +26,11 @@
                 @Html.DisplayFor(modelItem => item.QuizName)
             </td>
             <td>
-                <a asp-page="/Questions/Create" class="newQuestion">Add Question</a> |
-                <a asp-page="./Edit" asp-route-id="@item.QuizID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.QuizID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.QuizID">Delete</a> |
-                <a asp-page="/Questions/Index" class="btn btn-primary viewQuiz">Veiw Quiz Questions</a>
+                <a asp-page="/Questions/Create" class="res newQuestion">Add Question</a> |
+                <a asp-page="./Edit" asp-route-id="@item.QuizID" class="res">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.QuizID" class="res">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.QuizID" class="res">Delete</a> |
+                <a asp-page="/Questions/Index" class="res btn btn-primary viewQuiz">Veiw Quiz Questions</a>
             </td>
         </tr>
 }
@@ -55,5 +55,15 @@
             sessionStorage.setItem("quizName", quizName);
         })
     })
+    buttons = document.querySelectorAll(".res")
+    buttons.forEach(button => {
+        button.addEventListener("click",(e) => {
+            rights = localStorage.getItem("rights");
+            if (rights != "admin" && rights != "user") {
+                e.preventDefault();
+                alert("You do not have the correct access for this.\nContact an administrator to upgrade your privilages");
+            }
+        })
 
+    })
 </script>
