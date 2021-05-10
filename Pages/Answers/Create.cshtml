@@ -54,8 +54,26 @@
 }
 <script>
     window.addEventListener("load", () => {
-        if (sessionStorage.length > 1) {
-            question = sessionStorage.getItem("question").replace(/\s/g, "");
+        quiz = sessionStorage.getItem("quiz").replace(/\s/g, "");
+            if (quiz) {
+                quizMenu = document.querySelector(".quizName");
+                quizOptions = [...quizMenu.getElementsByTagName("option")]
+                quizOptions.forEach(option => {
+                    option.setAttribute("disabled", true)
+                    option.setAttribute("value", option.value.replace(/\s/g, ""));
+                    if (option.classList.contains("blankOption")) {
+                        option.setAttribute("value", "")
+                    }
+                    quizTarget = document.querySelector(`value=${quiz}`)
+                    quizTarget.setAttribute("selected", true)
+                    quizTarget.removeAttribute("disabled")
+                }) 
+                sessionStorage.removeItem("quiz");
+            }
+
+
+        question = sessionStorage.getItem("question").replace(/\s/g, "");
+        if (question) {
             questionMenu = document.querySelector(".questionName");
             questionOptions = [...questionMenu.getElementsByTagName("option")];
             questionOptions.forEach(option => {
@@ -64,26 +82,13 @@
                 if (option.classList.contains("blankOption")) {
                     option.setAttribute("value", "")
                 }
+                questionTarget = document.querySelector(`value=${question}`)
+                questionTarget.setAttribute("selected", true)
+                questionTarget.removeAttribute("disabled")
             })
-            questionTarget = document.querySelector("[value= " + question + "]")
-            questionTarget.setAttribute("selected", true)
-            questionTarget.removeAttribute("disabled")
-
-            quiz = sessionStorage.getItem("quiz").replace(/\s/g, "");
-            quizMenu = document.querySelector(".quizName");
-            quizOptions = [...quizMenu.getElementsByTagName("option")]
-            quizOptions.forEach(option => {
-                option.setAttribute("disabled", true)
-                option.setAttribute("value", option.value.replace(/\s/g, ""));
-                if (option.classList.contains("blankOption")) {
-                    option.setAttribute("value", "")
-                }
-            })
-            quizTarget = document.querySelector("[value= " + quiz + "]")
-            quizTarget.setAttribute("selected", true)
-            quizTarget.removeAttribute("disabled")
-            
-            sessionStorage.clear();
+            sessionStorage.removeItem("question")
         }
+
+        
     });
 </script>

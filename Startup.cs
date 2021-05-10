@@ -30,6 +30,10 @@ namespace QuizManager
             services.AddDbContext<QuizContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("QuizContext")));
             services.AddDatabaseDeveloperPageExceptionFilter();
+
+            services.AddDbContext<UserContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("UserContext")));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

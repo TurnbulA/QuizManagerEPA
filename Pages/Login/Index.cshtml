@@ -1,0 +1,59 @@
+﻿@page
+@model QuizManager.Pages.Login.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Login</h1>
+
+<div class="form-group">
+    <label>Username</label>
+    <input class="userInput" />
+</div>
+<div class="form-group">
+    <label>Password</label>
+    <input class="passInput" />
+</div>
+<div class="form-group">
+    <a class="btn btn-primary" onclick="submit()" asp-page="/Index">Login</a>
+</div>
+
+
+@foreach (var item in Model.User)
+{
+    <p class="user" style="display:none;">@Html.DisplayFor(modelItem => item.Username),@Html.DisplayFor(modelItem => item.Password),@Html.DisplayFor(modelItem => item.Access)</p>
+}
+
+<script>
+    function submit() {
+        var userStatus = false;
+        var passStatus = false;
+        var access;
+        userInput = document.querySelector(".userInput");
+        passInput = document.querySelector(".passInput");
+        users = document.querySelectorAll(".user")
+        users.forEach(user => {
+            user = user.innerHTML.split(',');
+            if (user[0]== userInput.value) {
+                userStatus = true
+                access = user[2]
+            }
+            if (user[1] == passInput.value) {
+                passStatus=true
+            }
+        })
+        if (userStatus == true && passStatus == true) {
+            localStorage.setItem("username", `${userInput.value}`)
+            localStorage.setItem("rights", `${access}`)
+            localStorage.setItem("status", "Active")
+            window.location.href=''
+        }
+        if (userStatus == false) {
+            alert("Incorrect Username please try again")
+        }
+        if (passStatus == false) {
+            alert("Incorrect Password please try again")
+        }
+    }
+</script>
