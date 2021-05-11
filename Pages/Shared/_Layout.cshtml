@@ -77,13 +77,15 @@
             rights = localStorage.getItem("rights");
             status = localStorage.getItem("status");
             button.addEventListener("click", (e) => {
+                console.log(status)
                 text = e.target.innerHTML;
-                if (button.innerHTML == "Login") {
-                    return;
-                }
-                if (button.innerHTML == "Login" && status != "null") {
+                if (button.innerHTML == "Login" && status == "Active") {
+                    console.log("hi")
                     e.preventDefault()
                     alert("You are already logged in");
+                }
+                if (button.innerHTML == "Login") {
+                    return;
                 }
                 if (status == "null") {
                     e.preventDefault();
