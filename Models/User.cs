@@ -8,7 +8,7 @@ namespace QuizManager.Models
 {
     public class User
     {
-        public int UserID { get; set; }
+        public int UserId { get; set; }
         
         public string Username { get; set; }
         [Display(Name = "First Name")]

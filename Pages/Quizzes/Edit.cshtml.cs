@@ -30,7 +30,7 @@ namespace QuizManager.Pages.Quizzes
                 return NotFound();
             }
 
-            Quiz = await _context.Quiz.FirstOrDefaultAsync(m => m.QuizID == id);
+            Quiz = await _context.Quiz.FirstOrDefaultAsync(m => m.QuizId == id);
 
             if (Quiz == null)
             {
@@ -56,7 +56,7 @@ namespace QuizManager.Pages.Quizzes
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!QuizExists(Quiz.QuizID))
+                if (!QuizExists(Quiz.QuizId))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace QuizManager.Pages.Quizzes
 
         private bool QuizExists(int id)
         {
-            return _context.Quiz.Any(e => e.QuizID == id);
+            return _context.Quiz.Any(e => e.QuizId == id);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace QuizManager.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.User.FirstOrDefaultAsync(m => m.UserID == id);
+            User = await _context.User.FirstOrDefaultAsync(m => m.UserId == id);
 
             if (User == null)
             {

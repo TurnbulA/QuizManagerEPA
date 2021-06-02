@@ -40,5 +40,6 @@ namespace QuizManager.Pages.Quizzes
 
             return RedirectToPage("./Index");
         }
+
     }
 }

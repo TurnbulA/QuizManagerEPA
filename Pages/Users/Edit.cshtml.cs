@@ -30,7 +30,7 @@ namespace QuizManager.Pages.Users
                 return NotFound();
             }
 
-            User = await _context.User.FirstOrDefaultAsync(m => m.UserID == id);
+            User = await _context.User.FirstOrDefaultAsync(m => m.UserId == id);
 
             if (User == null)
             {
@@ -56,7 +56,7 @@ namespace QuizManager.Pages.Users
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!UserExists(User.UserID))
+                if (!UserExists(User.UserId))
                 {
                     return NotFound();
                 }
@@ -71,7 +71,7 @@ namespace QuizManager.Pages.Users
 
         private bool UserExists(int id)
         {
-            return _context.User.Any(e => e.UserID == id);
+            return _context.User.Any(e => e.UserId == id);
         }
     }
 }
