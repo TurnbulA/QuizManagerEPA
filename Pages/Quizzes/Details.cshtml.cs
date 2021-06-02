@@ -28,7 +28,7 @@ namespace QuizManager.Pages.Quizzes
                 return NotFound();
             }
 
-            Quiz = await _context.Quiz.FirstOrDefaultAsync(m => m.QuizID == id);
+            Quiz = await _context.Quiz.FirstOrDefaultAsync(m => m.QuizId == id);
 
             if (Quiz == null)
             {

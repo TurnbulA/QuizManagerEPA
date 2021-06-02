@@ -15,10 +15,9 @@ namespace QuizManager.Data
         }
 
         public DbSet<QuizManager.Models.Question> Question { get; set; }
-
         public DbSet<QuizManager.Models.Quiz> Quiz { get; set; }
-
         public DbSet<QuizManager.Models.Answer> Answer { get; set; }
+
 
     }
 }
