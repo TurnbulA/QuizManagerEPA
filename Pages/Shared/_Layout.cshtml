@@ -70,17 +70,16 @@
         document.querySelector(".user").addEventListener("click", () => {
             if (confirm("Logout?")) {
                 localStorage.clear();
-                location.reload();
+                window.location.href = "..";
+
             }
         })
         document.querySelectorAll(".nav-link").forEach(button => {
             rights = localStorage.getItem("rights");
             status = localStorage.getItem("status");
             button.addEventListener("click", (e) => {
-                console.log(status)
                 text = e.target.innerHTML;
                 if (button.innerHTML == "Login" && status == "Active") {
-                    console.log("hi")
                     e.preventDefault()
                     alert("You are already logged in");
                 }
@@ -93,13 +92,15 @@
                 }
                 if (text == "Accounts" && rights != "admin") {
                     e.preventDefault();
-                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privilages")                    
+                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privileges")                    
                 }
-                if (text == "Answer List") {
-                    if (("user" != rights)&&("admin" != rights)) {
-                        e.preventDefault();
-                        alert("You do not have the correct access for this.\nContact an administrator to upgrade your privilages");
-                    }
+                if (text == "Answer List" && rights =="read") {
+                    e.preventDefault();
+                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privileges");
+                }
+                if (text == "Question List" && rights == "read") {
+                    e.preventDefault();
+                    alert("You do not have the correct access for this.\nContact an administrator to upgrade your privileges");
                 }
             })
         })
