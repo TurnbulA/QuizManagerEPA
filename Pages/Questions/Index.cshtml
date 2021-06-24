@@ -77,8 +77,8 @@
             questionName = parentTarget.querySelector(".questionName").innerHTML;
             questionName = questionName.trim();
             quizName = parentTarget.querySelector(".quizName").innerHTML.trim();
-            sessionStorage.setItem("question", questionName);
-            sessionStorage.setItem("quiz", quizName);
+            sessionStorage.setItem("question", `${questionName}`);
+            sessionStorage.setItem("quiz", `${quizName}`);
         })
     })
     viewAnswers = [...document.querySelectorAll(".viewAnswer")]
@@ -87,8 +87,8 @@
             parentTarget = e.target.parentNode.parentNode;
             question = parentTarget.querySelector(".questionName").innerHTML.trim();
             quiz = parentTarget.querySelector(".quizName").innerHTML.trim();
-            sessionStorage.setItem("questionName", question)
-            sessionStorage.setItem("quizName", quiz)
+            sessionStorage.setItem("question", `${questionName}`);
+            sessionStorage.setItem("quiz", `${quizName}`);
         })
     })
     buttons = document.querySelectorAll(".res")
