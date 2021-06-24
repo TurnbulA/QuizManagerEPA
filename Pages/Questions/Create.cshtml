@@ -40,14 +40,14 @@
 }
 <script>
     window.addEventListener("load", () => {
-        if (sessionStorage.length == 1) {
+        if (sessionStorage.length >= 1) {
             quizName = sessionStorage.getItem("quizName");
             quizName = quizName.replace(/\s/g, "");
             selectMenu = document.querySelector(".quizSelect");
             options = [...selectMenu.getElementsByTagName("option")];
             options.forEach(option => {
                 option.setAttribute("disabled", true);
-                option.setAttribute("value", option.value.replace(/\s/g,""));
+                option.setAttribute("value", `${quizName}`);
                 if (option.classList.contains("blankOption")) {
                     option.setAttribute("value", "")
                 }
