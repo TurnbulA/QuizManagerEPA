@@ -35,6 +35,12 @@
     <form method="post">
         <input type="hidden" asp-for="Answer.AnswerId" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-page="./Index">Back to List</a>
+        <a class="return btn btn-light" asp-page="./Index">Back to List</a>
     </form>
 </div>
+<script>
+    var returnLink = document.querySelector(".return");
+    window.addEventListener('load', e => {
+        returnLink.href = `/Questions/Details?id=${sessionStorage.getItem("questionRef")}`;
+    });
+</script>

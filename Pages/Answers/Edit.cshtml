@@ -26,8 +26,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Answer.QuestionContent" class="control-label"></label>
-                <input asp-for="Answer.QuestionContent" class="form-control" />
+                <input  asp-for="Answer.QuestionContent" class="form-control questionContent" readonly />
                 <span asp-validation-for="Answer.QuestionContent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Answer.QuestionRef" class="control-label"></label>
+                <input asp-for="Answer.QuestionRef" class="form-control questionRef" readonly />
+                <span asp-validation-for="Answer.QuestionRef" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -37,9 +42,20 @@
 </div>
 
 <div>
-    <a asp-page="./Index">Back to List</a>
+    <a class="return btn btn-light" asp-page="./Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script>
+    var questionContent = document.querySelector(".questionContent");
+    var questionRef = document.querySelector(".questionRef");
+    var returnLink = document.querySelector(".return");
+    window.addEventListener("load", () => {
+        questionContent.value = sessionStorage.getItem("questionContent");
+        questionRef.value = sessionStorage.getItem("questionRef");
+        returnLink.href = `/Questions/Details?id=${sessionStorage.getItem("questionRef")}`;
+    });
+</script>

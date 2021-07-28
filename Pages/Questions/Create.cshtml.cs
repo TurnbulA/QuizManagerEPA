@@ -38,8 +38,8 @@ namespace QuizManager.Pages.Questions
 
             _context.Question.Add(Question);
             await _context.SaveChangesAsync();
+            return Redirect($"/Quizzes/Details?id={Question.QuizRef}");
 
-            return RedirectToPage("./Index");
         }
     }
 }

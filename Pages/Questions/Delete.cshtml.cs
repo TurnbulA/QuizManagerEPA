@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using QuizManager.Data;
+using QuizManager.Migrations;
 using QuizManager.Models;
 
 namespace QuizManager.Pages.Questions
@@ -21,6 +22,7 @@ namespace QuizManager.Pages.Questions
 
         [BindProperty]
         public Question Question { get; set; }
+        public IList<Answer> Answer { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,7 +32,7 @@ namespace QuizManager.Pages.Questions
             }
 
             Question = await _context.Question.FirstOrDefaultAsync(m => m.ID == id);
-
+            Answer = await _context.Answer.ToListAsync();
             if (Question == null)
             {
                 return NotFound();
@@ -46,14 +48,19 @@ namespace QuizManager.Pages.Questions
             }
 
             Question = await _context.Question.FindAsync(id);
-
+            Answer = await _context.Answer.ToListAsync();
+            var quizRef = Question.QuizRef; 
             if (Question != null)
             {
+                foreach (var answer in Answer)
+                {
+                    _context.Answer.Remove(answer);
+                }
                 _context.Question.Remove(Question);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return Redirect($"/Quizzes/Details?id={quizRef}");
         }
     }
 }

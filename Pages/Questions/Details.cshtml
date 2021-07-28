@@ -20,12 +20,59 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Question.QuestionContent)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10 questionContent">
             @Html.DisplayFor(model => model.Question.QuestionContent)
         </dd>
+    </dl>
+    <p>
+        <a asp-page="/Answers/Create">Create a new answer</a>
+    </p>
+    <dl>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Answer[0].AnswerContent)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Answer[0].AnswerType)
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model.Answer) {
+                <tr class="questionAnswer">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AnswerContent)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AnswerType)
+                    </td>
+                    <td>
+                        <a asp-page="/Answers/Edit" asp-route-id="@item.AnswerId">Edit</a> |
+                        <a asp-page="/Answers/Details" asp-route-id="@item.AnswerId">Details</a> |
+                        <a asp-page="/Answers/Delete" asp-route-id="@item.AnswerId">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
     </dl>
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Question.ID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a class="return btn btn-light" asp-page="/Quizzes/Details">Back to List</a>
 </div>
+
+<script>
+    questionContent = document.querySelector(".questionContent").innerHTML.trim();
+    questionRef = @Model.Question.ID;
+    returnLink = document.querySelector(".return");
+    window.addEventListener('load', e => {
+        returnLink.href = `/Quizzes/Details?id=${@Model.Question.QuizRef}`;
+        sessionStorage.removeItem("questionContent");
+        sessionStorage.removeItem("questionRef");
+        sessionStorage.setItem("questionContent", questionContent);
+        sessionStorage.setItem("questionRef", questionRef);
+    });
+</script>

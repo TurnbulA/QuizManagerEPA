@@ -20,9 +20,13 @@
             </div>
             <div class="form-group">
                 <label asp-for="Question.QuizName" class="control-label"></label>
-                <select asp-for="Question.QuizName" class="form-control quizSelect" asp-items="ViewBag.QuizName">
-                    <option class="blankOption" disabled selected value="">--Select an Option--</option>
-                </select>
+                <input asp-for="Question.QuizName" class="form-control quizName" readonly/>
+                <span asp-validation-for="Question.QuizName"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Question.QuizRef" class="control-lable"></label>
+                <input asp-for="Question.QuizRef" class="form-control quizRef" readonly/>
+                <span asp-validation-for="Question.QuizRef"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -32,31 +36,23 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a class="return btn btn-light" asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 <script>
+    quizName = document.querySelector(".quizName");
+    quizRef = document.querySelector(".quizRef");
+    returnLink = document.querySelector(".return");
     window.addEventListener("load", () => {
         if (sessionStorage.length >= 1) {
-            quizName = sessionStorage.getItem("quizName");
-            quizName = quizName.replace(/\s/g, "");
-            selectMenu = document.querySelector(".quizSelect");
-            options = [...selectMenu.getElementsByTagName("option")];
-            options.forEach(option => {
-                option.setAttribute("disabled", true);
-                option.setAttribute("value", `${quizName}`);
-                if (option.classList.contains("blankOption")) {
-                    option.setAttribute("value", "")
-                }
-            })
-            
-            target = document.querySelector("[value= " + quizName + "]")
-            target.setAttribute("selected", true)                        
-            target.removeAttribute("disabled")
-            sessionStorage.clear();
+            returnLink.href = `/Quizzes/Details?id=${sessionStorage.getItem("quizRef")}`;
+            quizName.value = sessionStorage.getItem("quizName");
+            quizRef.value = sessionStorage.getItem("quizRef");
+            sessionStorage.removeItem("quizName");
+            sessionStorage.removeItem("quizRef");
         }
     });
 </script>
