@@ -40,7 +40,7 @@ namespace QuizManager.Pages.Answers
             _context.Answer.Add(Answer);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return Redirect($"/Questions/Details?id={Answer.QuestionRef}");
         }
     }
 }

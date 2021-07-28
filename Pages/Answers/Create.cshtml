@@ -27,16 +27,14 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Answer.QuizName" class="control-label"></label>
-                <select asp-for="Answer.QuizName" class="form-control quizName" asp-items="ViewBag.QuizName">
-                    <option class="blankQuiz" disabled selected value="">--Select an Option--</option>
-                </select>
+                <label asp-for="Answer.QuestionContent" class="control-label"></label>
+                <input asp-for="Answer.QuestionContent" class="form-control questionContent" readonly/>
+                <span asp-validation-for="Answer.QuestionContent" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Answer.QuestionContent" class="control-label"></label>
-                <select asp-for="Answer.QuestionContent" class="form-control questionName" asp-items="ViewBag.QuestionContent">
-                    <option class="blankOption" disabled selected value="">--Select an Option--</option>
-                </select>
+                <label asp-for="Answer.QuestionRef" class="control-label"></label>
+                <input asp-for="Answer.QuestionRef" class="form-control questionRef" readonly/>
+                <span asp-validation-for="Answer.QuestionRef" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -46,48 +44,19 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a class="return btn btn-light" asp-page="Index">Back to List</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 <script>
+    var questionContent = document.querySelector(".questionContent");
+    var questionRef = document.querySelector(".questionRef");
+    var returnLink = document.querySelector(".return");
     window.addEventListener("load", () => {
-        quiz = sessionStorage.getItem("quiz").replace(/\s/g, "");
-        if (quiz) {
-                quizMenu = document.querySelector(".quizName");
-                quizOptions = [...quizMenu.getElementsByTagName("option")]
-                quizOptions.forEach(option => {
-                    option.setAttribute("disabled", true)
-                    option.setAttribute("value", `${quiz}`);
-                    if (option.classList.contains("blankQuiz")) {
-                        option.setAttribute("value", "")
-                    }
-                })
-                quizTarget = document.querySelector(`[value=${quiz}]`)
-                quizTarget.setAttribute("selected", true)
-                quizTarget.removeAttribute("disabled")
-                sessionStorage.removeItem("quiz");
-            }
-
-
-        question = sessionStorage.getItem("question").replace(/\s/g, "");
-        console.log(typeof question)
-        if (question) {
-            questionMenu = document.querySelector(".questionName");
-            questionOptions = [...questionMenu.getElementsByTagName("option")];
-            questionOptions.forEach(option => {
-                option.setAttribute("disabled", true)
-                option.setAttribute("value", `${question}`);
-                if (option.classList.contains("blankOption")) {
-                    option.setAttribute("value", "")
-                }
-            })
-            questionTarget = document.querySelector(`[value="${question}"]`);
-            questionTarget.setAttribute("selected", true);
-            questionTarget.removeAttribute("disabled");
-            sessionStorage.removeItem("question");
-        }
+        questionContent.value = sessionStorage.getItem("questionContent");
+        questionRef.value = sessionStorage.getItem("questionRef");
+        returnLink.href = `/Questions/Details?id=${sessionStorage.getItem("questionRef")}`;
     });
 </script>

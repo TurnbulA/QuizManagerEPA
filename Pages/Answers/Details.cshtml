@@ -33,5 +33,12 @@
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Answer.AnswerId">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a class="return btn btn-light" asp-page="./Index">Back to List</a>
 </div>
+
+<script>
+    var returnLink = document.querySelector(".return");
+    window.addEventListener('load', e => {
+        returnLink.href = `/Questions/Details?id=${sessionStorage.getItem("questionRef")}`;
+    });
+</script>

@@ -46,14 +46,14 @@ namespace QuizManager.Pages.Answers
             }
 
             Answer = await _context.Answer.FindAsync(id);
-
+            var questionRef = Answer.QuestionRef;
             if (Answer != null)
             {
                 _context.Answer.Remove(Answer);
                 await _context.SaveChangesAsync();
             }
 
-            return RedirectToPage("./Index");
+            return Redirect($"/Questions/Details?id={questionRef}");
         }
     }
 }

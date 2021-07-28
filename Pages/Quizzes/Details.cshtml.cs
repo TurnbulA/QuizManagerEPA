@@ -20,7 +20,7 @@ namespace QuizManager.Pages.Quizzes
         }
 
         public Quiz Quiz { get; set; }
-
+        public IList<Question> Question { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -29,7 +29,7 @@ namespace QuizManager.Pages.Quizzes
             }
 
             Quiz = await _context.Quiz.FirstOrDefaultAsync(m => m.QuizId == id);
-
+            Question = await _context.Question.ToListAsync();
             if (Quiz == null)
             {
                 return NotFound();

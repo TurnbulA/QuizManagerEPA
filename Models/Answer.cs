@@ -18,6 +18,8 @@ namespace QuizManager.Models
         public string QuestionContent { get; set; }
         [Display(Name ="Quiz")]
         public string QuizName { get; set; }
+        [Display (Name = "Question Id")]
+        public int QuestionRef { get; set; }
         public Question Question { get; set; }
         public Quiz Quiz { get; set; }
     }

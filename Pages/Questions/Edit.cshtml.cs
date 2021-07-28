@@ -66,7 +66,7 @@ namespace QuizManager.Pages.Questions
                 }
             }
 
-            return RedirectToPage("./Index");
+            return Redirect($"/Quizzes/Details?id={Question.QuizRef}");
         }
 
         private bool QuestionExists(int id)
